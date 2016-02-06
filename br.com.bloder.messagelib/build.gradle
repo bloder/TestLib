@@ -1,18 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: "maven-publish"
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    pkg {
-        repo = 'generic'
-        name = 'gradle-project'
-        userOrg = 'bintray_user'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
-    }
-}
 
 android {
     compileSdkVersion 23
@@ -28,6 +17,30 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['TestLibPublication']
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'MessageService'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/bloder/TestLib'
+        publish = true
+    }
+}
+
+publishing {
+    publications {
+        TestLibPublication(MavenPublication) {
+            groupId 'br.com.bloder.messagelib'
+            artifactId 'MessageService'
+            version '1.2'
         }
     }
 }
