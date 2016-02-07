@@ -3,6 +3,8 @@ apply plugin: "maven-publish"
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
+version = "2.6.0"
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -21,18 +23,20 @@ android {
     }
 }
 
+def siteUrl = 'https://github.com/bloder/TestLib'
+def gitUrl = 'https://github.com/bloder/TestLib.git'
+group = 'com.github.bloder'
+
 install {
     repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
         pom {
             project {
                 packaging 'aar'
 
-                // Add your description here
                 name 'MessageService'
-                description = ''
+                description = 'This is my test lib'
+                url siteUrl
 
-                // Set your license
                 licenses {
                     license {
                         name 'The Apache Software License, Version 2.0'
@@ -46,28 +50,12 @@ install {
                         email 'aptgetinstalldanielleme@gmail.com'
                     }
                 }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
             }
-        }
-    }
-}
-
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = 'MessageService'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/bloder/TestLib'
-        publish = true
-        version {
-            name = '1.0'
-            desc = 'Version 1.0'
-            released  = new Date()
-            vcsTag = '1.0.0'
-            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
     }
 }
@@ -86,10 +74,32 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
-
 artifacts {
     archives javadocJar
     archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'MessageService'
+        licenses = ['Apache-2.0']
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        publish = true
+        version {
+            gpg {
+                sign = true
+                passphrase = properties.getProperty("bintray.gpg.password")
+            }
+        }
+    }
 }
 
 dependencies {
