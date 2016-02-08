@@ -2,8 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: "maven-publish"
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven'
 
-version = "2.6.1"
+version = "2.7.3"
 
 android {
     compileSdkVersion 23
@@ -23,8 +24,6 @@ android {
     }
 }
 
-def siteUrl = 'https://github.com/bloder/TestLib'
-def gitUrl = 'https://github.com/bloder/TestLib.git'
 group = 'com.github.bloder'
 
 install {
@@ -35,7 +34,7 @@ install {
 
                 name 'MessageService'
                 description = 'This is my test lib'
-                url siteUrl
+                url 'https://github.com/bloder/TestLib'
 
                 licenses {
                     license {
@@ -51,9 +50,9 @@ install {
                     }
                 }
                 scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
+                    connection 'https://github.com/bloder/TestLib.git'
+                    developerConnection 'https://github.com/bloder/TestLib.git'
+                    url 'https://github.com/bloder/TestLib'
                 }
             }
         }
@@ -90,8 +89,8 @@ bintray {
         repo = 'maven'
         name = 'MessageService'
         licenses = ['Apache-2.0']
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
+        websiteUrl = 'https://github.com/bloder/TestLib'
+        vcsUrl = 'https://github.com/bloder/TestLib.git'
         publish = true
         version {
             gpg {
@@ -106,4 +105,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'org.jsoup:jsoup:1.8.1'
 }

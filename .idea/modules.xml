@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FirstLib.iml" filepath="$PROJECT_DIR$/FirstLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/br.com.bloder.messagelib/br.com.bloder.messagelib.iml" filepath="$PROJECT_DIR$/br.com.bloder.messagelib/br.com.bloder.messagelib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/message-lib/message-lib.iml" filepath="$PROJECT_DIR$/message-lib/message-lib.iml" />
     </modules>
   </component>
 </project>

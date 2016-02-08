@@ -1,1 +1,1 @@
-include ':app', ':br.com.bloder.messagelib'
+include ':app', ':message-lib'
